@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <video id="video-tag" autobuffer controls poster="/images/video.png">
+        <source src="http://www.w3schools.com/html/mov_bbb.mp4" type="video/ogg">
+    </video>
+    <form>
+        <button type="button" id="castme">Click To Cast</button>
+    </form>
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+var session = null;
+$(function() {
+    var loadCastInterval = setInterval(function() {
+        if (chrome.cast.isAvailable) {
+            console.log('Cast has loaded.');
+            clearInterval(loadCastInterval);
+            initializeCastApi();
+        } else {
+            console.log('Unavailable');
+        }
+    }, 1000);
+});
+
+function initializeCastApi() {
+    var applicationID = chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID;
+    var sessionRequest = new chrome.cast.SessionRequest(applicationID);
+    var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
+        sessionListener,
+        receiverListener);
+    chrome.cast.initialize(apiConfig, onInitSuccess, onInitError);
+};
+
+function sessionListener(e) {
+    session = e;
+    console.log('New session');
+    if (session.media.length != 0) {
+        console.log('Found ' + session.media.length + ' sessions.');
+    }
+}
+
+function receiverListener(e) {
+    if (e === 'available') {
+        console.log("Chromecast was found on the network.");
+    } else {
+        console.log("There are no Chromecasts available.");
+    }
+}
+
+function onInitSuccess() {
+    console.log("Initialization succeeded");
+}
+
+function onInitError() {
+    console.log("Initialization failed");
+}
+$('#castme').click(function() {
+    launchApp();
+});
+
+function launchApp() {
+    console.log("Launching the Chromecast App...");
+    chrome.cast.requestSession(onRequestSessionSuccess, onLaunchError);
+}
+
+function onRequestSessionSuccess(e) {
+    console.log("Successfully created session: " + e.sessionId);
+    session = e;
+}
+
+function onLaunchError() {
+    console.log("Error connecting to the Chromecast.");
+}
+
+function onRequestSessionSuccess(e) {
+    console.log("Successfully created session: " + e.sessionId);
+    session = e;
+    loadMedia();
+}
+
+function loadMedia() {
+    if (!session) {
+        console.log("No session.");
+        return;
+    }
+
+    var mediaInfo = new chrome.cast.media.MediaInfo('http://hls.fod4.com/master/v/25c17d6eb2/v600,v400,v200,v110,v1200,v1800,v2500/master.m3u8?vtt=true');
+    console.dir(mediaInfo);
+    mediaInfo.contentType = 'application/x-mpegurl';
+
+    var request = new chrome.cast.media.LoadRequest(mediaInfo);
+    request.autoplay = true;
+
+    session.loadMedia(request, onLoadSuccess, onLoadError);
+}
+
+function onLoadSuccess() {
+    console.log('Successfully loaded.');
+}
+
+function onLoadError() {
+    console.log('Failed to load image.');
+}
+</script>
+
+</html>

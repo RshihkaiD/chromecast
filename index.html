@@ -1,17 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Chromecast : chromecast-dev">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <title>Chromecast</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="/css/video-js.css" rel="stylesheet">
+    <style type="text/css">
+    .video-js {
+        overflow: hidden;
+    }
+    
+    .vjs-poster img.playBtn {
+        position: absolute;
+        width: 100px;
+        top: 40%;
+        display: none;
+        left: 40%;
+        cursor: pointer;
+    }
+    
+    .chromeCastposterBlock {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    
+    .vjs-poster img.chromecastIcon {
+        width: 50px;
+        margin: 0;
+    }
+    
+    .loadingImage {
+        position: absolute;
+        width: 100px !important;
+        top: 26%;
+        left: 40%;
+    }
+    </style>
 </head>
 
 <body>
-
+    <div class="info">
+        <h1 id="title-Infor" class="titleStyle">chromeCast 影片</h1>
+        <video id="videojs-contrib-hls-player" class="video-js vjs-default-skin" poster="/images/smile.jpg" controls>
+            <source src="http://solutions.brightcove.com/jwhisenant/hls/apple/bipbop/bipbopall.m3u8" type="application/x-mpegURL">
+        </video>
+        <div id="load-more" class="loadList"></div>
+    </div>
 </body>
+<script type="text/javascript" src="js/video.js"></script>
+<script type="text/javascript" src="js/videojs-contrib-hls.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/chromecastPlugings.js" defer></script>
 
 </html>
