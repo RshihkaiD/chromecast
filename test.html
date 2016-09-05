@@ -2,21 +2,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>Document</title>
 </head>
 
 <body>
-    <video id="video-tag" autobuffer controls poster="/images/video.png">
-        <source src="http://www.w3schools.com/html/mov_bbb.mp4" type="video/ogg">
-    </video>
-    <form>
-        <button type="button" id="castme">Click To Cast</button>
-    </form>
+	<video id="video-tag" autobuffer controls poster="/images/video.png">
+		<source src="http://www.w3schools.com/html/mov_bbb.mp4"
+			type="video/ogg">
+	</video>
+	<form>
+		<button type="button" id="castme">Click To Cast</button>
+	</form>
 </body>
-<script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript">
 var session = null;
 $(function() {
